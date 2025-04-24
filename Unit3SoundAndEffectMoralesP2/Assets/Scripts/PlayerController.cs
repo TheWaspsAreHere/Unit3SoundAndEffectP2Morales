@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
 
 {
     private Rigidbody playerRb;
+    private float speed = 10.0f;
+    private float zBound = 6;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +19,26 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        { 
-           playerRb.AddForce(Vector3.up * 100, ForceMode.Impulse);
+      
+        if (transform.position.z < -zBound) 
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -zBound);
         }
+
+        if (transform.position.z > zBound)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, zBound);
+        }
+    }
+
+    // Move the player based on arrow key input
+    void  MovePlayer()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        playerRb.AddForce((Vector3.forward * speed * verticalInput));
+        playerRb.AddForce(Vector3.right * speed * horizontalInput);
 
     }
 }
