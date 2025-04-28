@@ -3,42 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
-  
+
 
 {
     private Rigidbody playerRb;
-    private float speed = 10.0f;
-    private float zBound = 6;
+    public float jumpForce = 10;
+    public float gravityModifier;
+    public bool isOnGround = true;
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        Physics.gravity *= gravityModifier;
     }
 
     // Update is called once per frame
     void Update()
     {
-      
-        if (transform.position.z < -zBound) 
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, -zBound);
-        }
-
-        if (transform.position.z > zBound)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, zBound);
+            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isOnGround = false;
         }
     }
 
-    // Move the player based on arrow key input
-    void  MovePlayer()
+    private void OnCollisionEnter(Collision collision)
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        playerRb.AddForce((Vector3.forward * speed * verticalInput));
-        playerRb.AddForce(Vector3.right * speed * horizontalInput);
-
+        isOnGround = true;
     }
 }
