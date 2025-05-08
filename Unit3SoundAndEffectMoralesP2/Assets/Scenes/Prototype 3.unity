@@ -569,14 +569,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36083911759e877479bf31f6d704d79f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 100
-  gravityModifier: 4
+  jumpForce: 6
+  gravityModifier: 3
   isOnGround: 1
   gameOver: 0
   explosionParticle: {fileID: 870655038}
   dirtParticle: {fileID: 48315907}
   jumpSound: {fileID: 8300000, guid: 113ee460fadc340e4957a7404a9fbb27, type: 3}
   crashSound: {fileID: 8300000, guid: 913d6445ee8cc4152a9c18da590ee203, type: 3}
+  startGame: 0
 --- !u!65 &722026601
 BoxCollider:
   m_ObjectHideFlags: 0
